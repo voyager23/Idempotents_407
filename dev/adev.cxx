@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 {
 	uint64_t mod, a;
 	
-	for(mod = 999000; mod != 998500; --mod) {
+	for(mod = 5000000; mod != 4999990; --mod) {
 		for(a = mod-1;  a != 0; --a) {
 			if((a * a % mod) == a) {
 				cout << "M(" << mod << ") = " << a << endl;

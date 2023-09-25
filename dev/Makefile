@@ -5,3 +5,6 @@ adev : adev.cxx toolbox.cxx Makefile
 
 bdev : bdev.cxx toolbox.cxx Makefile
 	g++ bdev.cxx toolbox.cxx -std=c++17 -o ../bin/bdev
+	
+combi : combi.cpp Makefile
+	g++ combi.cpp -std=c++17 -o ../bin/combi
