@@ -25,7 +25,7 @@
 
 void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
 {
-	printf("Starting Sieve for n = %llu\n",n);
+	printf("Starting Sieve for n = %llu...",n);
     // internal vector of bool
     std::vector<bool> prime;
     // Set n+1 entries in vector<bool> to true
@@ -101,7 +101,7 @@ bool cmp_PrimePowers(PrimePower &ref, PrimePower &query){
 }
 
 void prt_pfofn(PfactOfN &pf){
-	for(auto pp = pf.begin(); pp != pf.end(); ++pp) printf("{%u, %u} ", pp->first, pp->second);
+	for(auto pp = pf.begin(); pp != pf.end(); ++pp) printf("{%llu, %llu} ", pp->first, pp->second);
 	NL;
 }
 
