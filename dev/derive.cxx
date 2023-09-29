@@ -32,6 +32,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+	// Output goes to std::out
+	system("git symbolic-ref --short HEAD");
     
     // setup the factorisation functions
     vector<uint64_t> primes;
@@ -41,27 +43,27 @@ int main(int argc, char **argv)
 	vector< vector<uint64_t> > combinations;
  	
  	// Here n > 1
- 	for(uint64_t n : {2,3,5,7,11,13,14,15}) {
+ 	for(uint64_t n : {13,14,15,1155}) {
 		cout << "n:" << n << endl;
 		find_factors(primes, n, factors);
 		combinations.clear();
 		
-		// print the initial permutation
 		combinations.push_back(factors);
 		while(next_permutation(factors.begin(), factors.end())) {
 			combinations.push_back(factors);
 		}
-		for(auto &c : combinations) {
-			for(auto &d : c) cout << d << " ";
-			cout << endl;
-		}
-		//~ //cout<<endl;
-		set< vector<uint64_t> > combs;
+		// print the combinations
+		//~ for(auto &c : combinations) {
+			//~ for(auto &d : c) cout << d << " ";
+			//~ cout << endl;
+		//~ }
+		//~ cout<<endl;
 		
+		set< vector<uint64_t> > combs;
 		for(int l = 0; l != factors.size(); l++) {
 			combs.clear();
 			for(auto &c : combinations) {
-				vector<uint64_t> d = {c.begin(), c.end()-l - 1};
+				vector<uint64_t> d = {c.begin(), c.begin()+l+1};
 				sort(d.begin(), d.end());
 				combs.insert(d);
 				
