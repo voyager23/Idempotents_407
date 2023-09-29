@@ -2,7 +2,10 @@
 
 FLAGS = -std=c++17 -g
 
-afm :afindmod.cxx Makefile
+derive : derive.cxx toolbox.cxx
+	g++ derive.cxx toolbox.cxx $(FLAGS) -o ../bin/derive
+
+afm : afindmod.cxx Makefile
 	g++ afindmod.cxx toolbox.cxx $(FLAGS) -o ../bin/afm
 
 combi : combi.cpp Makefile
