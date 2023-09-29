@@ -46,18 +46,12 @@ int main(int argc, char **argv)
  	for(uint64_t n : {13,14,15,1155}) {
 		cout << "n:" << n << endl;
 		find_factors(primes, n, factors);
-		combs.clear();
 		
+		combs.clear();	
 		combs.push_back(factors);
 		while(next_permutation(factors.begin(), factors.end())) {
 			combs.push_back(factors);
 		}
-		// print the combs
-		//~ for(auto &c : combs) {
-			//~ for(auto &d : c) cout << d << " ";
-			//~ cout << endl;
-		//~ }
-		//~ cout<<endl;
 		
 		set< vector<uint64_t> > combinations;
 		for(int l = 0; l != factors.size(); l++) {
