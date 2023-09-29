@@ -30,6 +30,10 @@
 
 using namespace std;
 
+void combinations(vector<uint64_t> &source, vector<vector<uint64_t>> &combinations);
+void combinations(vector<uint64_t> &source, vector<vector<uint64_t>> &combinations){
+}
+
 int main(int argc, char **argv)
 {
 	// Output goes to std::out
@@ -61,7 +65,7 @@ int main(int argc, char **argv)
 				sort(d.begin(), d.end());
 				combinations.insert(d);
 			}
-			// combinations holds vectors of all print combinations
+			// combinations holds vectors of all combinations
 			for(auto &c : combinations) {
 				for(auto &d : c) cout << d << " ";
 				cout << endl;
