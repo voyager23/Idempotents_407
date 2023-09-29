@@ -40,36 +40,35 @@ int main(int argc, char **argv)
     SieveOfEratosthenes(primes, 1000000);
     
 	vector<uint64_t> factors;
-	vector< vector<uint64_t> > combinations;
+	vector< vector<uint64_t> > combs;
  	
  	// Here n > 1
  	for(uint64_t n : {13,14,15,1155}) {
 		cout << "n:" << n << endl;
 		find_factors(primes, n, factors);
-		combinations.clear();
+		combs.clear();
 		
-		combinations.push_back(factors);
+		combs.push_back(factors);
 		while(next_permutation(factors.begin(), factors.end())) {
-			combinations.push_back(factors);
+			combs.push_back(factors);
 		}
-		// print the combinations
-		//~ for(auto &c : combinations) {
+		// print the combs
+		//~ for(auto &c : combs) {
 			//~ for(auto &d : c) cout << d << " ";
 			//~ cout << endl;
 		//~ }
 		//~ cout<<endl;
 		
-		set< vector<uint64_t> > combs;
+		set< vector<uint64_t> > combinations;
 		for(int l = 0; l != factors.size(); l++) {
-			combs.clear();
-			for(auto &c : combinations) {
+			combinations.clear();
+			for(auto &c : combs) {
 				vector<uint64_t> d = {c.begin(), c.begin()+l+1};
 				sort(d.begin(), d.end());
-				combs.insert(d);
-				
+				combinations.insert(d);
 			}
-			// print combs
-			for(auto &c : combs) {
+			// combinations holds vectors of all print combinations
+			for(auto &c : combinations) {
 				for(auto &d : c) cout << d << " ";
 				cout << endl;
 			}
