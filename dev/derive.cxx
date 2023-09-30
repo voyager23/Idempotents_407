@@ -30,47 +30,50 @@
 
 using namespace std;
 
-int main(int argc, char **argv)
-{
-	// Output goes to std::out
-	system("git symbolic-ref --short HEAD");
-    
-    // setup the factorisation functions
-    vector<uint64_t> primes;
-    SieveOfEratosthenes(primes, 1000000);
-    
-	vector<uint64_t> factors;
-	vector< vector<uint64_t> > combs;
- 	
- 	// Here n > 1
- 	for(uint64_t n : {13,14,15,1155}) {
-		cout << "n:" << n << endl;
-		find_factors(primes, n, factors);
-		
-		combs.clear();	
-		combs.push_back(factors);
-		while(next_permutation(factors.begin(), factors.end())) {
-			combs.push_back(factors);
-		}
-		
-		set< vector<uint64_t> > combinations;
-		for(int l = 0; l != factors.size(); l++) {
-			combinations.clear();
-			for(auto &c : combs) {
-				vector<uint64_t> d = {c.begin(), c.begin()+l+1};
-				sort(d.begin(), d.end());
-				combinations.insert(d);
-			}
-			// combinations holds vectors of all print combinations
-			for(auto &c : combinations) {
-				for(auto &d : c) cout << d << " ";
-				cout << endl;
-			}
-			//cout<<endl;
-		}
+void combine(vector<uint64_t> &src, set<vector<uint64_t>> &comb);
+
+void combine(vector<uint64_t> &src, set<vector<uint64_t>> &comb) {
+	// enumerate all valid combinations of src - save in set combinations
+	 
+	vector< vector<uint64_t> > perms;
+	
+	// enumerate and save all permutations of src in 'perms'	
+	perms.clear();	
+	perms.push_back(src);
+	while(next_permutation(src.begin(), src.end())) {
+		perms.push_back(src);
 	}
 	
-	
+	// 
+	comb.clear();
+	for(int l = 0; l != src.size(); l++) {
+		for(auto &p : perms) {
+			vector<uint64_t> d = {p.begin(), p.begin()+l+1};
+			sort(d.begin(), d.end());
+			comb.insert(d);	// silent fail if already in set
+		}
+	} // next length
+	// set comb now holds vectors of all valid combinations	
+}
+
+int main(int argc, char **argv)
+{
+    
+    //~ // setup the factorisation functions
+    //~ vector<uint64_t> primes;
+    //~ SieveOfEratosthenes(primes, 1000000);
+    
+	vector<uint64_t> src = {3,5,5,7,11};
+	set<vector<uint64_t>> combinations;
+	combine(src, combinations);
+	for(auto &c : combinations) {
+		uint64_t m = 1;
+		for(auto &d : c) {
+			cout << d << " ";
+			m *= d;
+		}
+		cout << "  =>  " << m << endl;
+	}
 		
 	return 0;
 }
