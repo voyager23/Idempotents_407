@@ -63,7 +63,7 @@ int main(int argc, char **argv)
     //~ vector<uint64_t> primes;
     //~ SieveOfEratosthenes(primes, 1000000);
     
-	vector<uint64_t> src = {3,5,5,7,11};
+	vector<uint64_t> src = {3,5,5,7,11,13,17};
 	set<vector<uint64_t>> combinations;
 	combine(src, combinations);
 	for(auto &c : combinations) {
