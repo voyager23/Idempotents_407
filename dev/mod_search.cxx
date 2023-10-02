@@ -87,6 +87,7 @@ int main(int argc, char **argv)
 				cout << "solution m:" << m << " a:" << a << endl;
 			}
 		}
+		// TODO ?sort primary results on modulus?
 	}
 		
 			
