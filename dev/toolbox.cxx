@@ -25,7 +25,7 @@
 
 void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
 {
-	printf("Starting Sieve for n = %lu...",n);
+	printf("Starting Sieve for n = %llu...",n);
     // internal vector of bool
     std::vector<bool> prime;
     // Set n+1 entries in vector<bool> to true
@@ -101,7 +101,7 @@ bool cmp_PrimePowers(PrimePower &ref, PrimePower &query){
 }
 
 void prt_pfofn(PfactOfN &pf){
-	for(auto pp = pf.begin(); pp != pf.end(); ++pp) printf("{%lu, %lu} ", pp->first, pp->second);
+	for(auto pp = pf.begin(); pp != pf.end(); ++pp) printf("{%llu, %llu} ", pp->first, pp->second);
 	NL;
 }
 
@@ -158,9 +158,9 @@ ul fsf(ul prime, ul power){
 void prt_map(MapFactN mfn){
 	
 	for(auto i = mfn.begin(); i != mfn.end(); ++i){
-		printf("s(%lu): ", i->first);
+		printf("s(%llu): ", i->first);
 		for(auto j = i->second.begin(); j != i->second.end(); ++j)
-			printf("%lu ", *j);
+			printf("%llu ", *j);
 		NL;
 	}
 }

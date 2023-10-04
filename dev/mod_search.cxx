@@ -1,5 +1,5 @@
 /*
- * derive.cxx
+ * mod_search.cxx
  * 
  * Copyright 2023 Mike <mike@pop-os>
  * 
@@ -18,9 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * Derive a vector of combinations using the permutations function
+ * 
  */
-
 
 #include <iostream>
 #include <vector>
@@ -29,7 +28,6 @@
 #include "../inc/toolbox.hxx"
 
 using namespace std;
-
 
 void combine(vector<uint64_t> &src, set<vector<uint64_t>> &comb);
 
@@ -43,7 +41,7 @@ void combine(vector<uint64_t> &src, set<vector<uint64_t>> &comb) {
 	perms.push_back(src);
 	while(next_permutation(src.begin(), src.end())) {
 		perms.push_back(src);
-}
+	}
 	
 	// 
 	comb.clear();
@@ -59,23 +57,40 @@ void combine(vector<uint64_t> &src, set<vector<uint64_t>> &comb) {
 
 int main(int argc, char **argv)
 {
+	// consider values of a in range 100 -> 199
+	// possible values for a modulus  100 < modulus < 400 {2*a}
+	uint64_t a,a1,m;
+	vector<uint64_t> factors_a;
+	vector<uint64_t> factors_a1;
+	
+    // setup the factorisation functions
+    vector<uint64_t> primes;
+    SieveOfEratosthenes(primes, 1000000);
     
-    //~ // setup the factorisation functions
-    //~ vector<uint64_t> primes;
-    //~ SieveOfEratosthenes(primes, 1000000);
-    
-	vector<uint64_t> src = {3,5,5,7,11,13,17};
 	set<vector<uint64_t>> combinations;
-	combine(src, combinations);
-	for(auto &c : combinations) {
-		uint64_t m = 1;
-		for(auto &d : c) {
-			cout << d << " ";
-			m *= d;
+	for(a = 100; a != 200; ++a) {
+		a1 = a - 1;
+		find_factors(primes, a, factors_a);
+		find_factors(primes, a1, factors_a1);
+		
+		// concatenate a and a1		
+		factors_a.insert(factors_a.end(), factors_a1.begin(), factors_a1.end());
+		set<vector<uint64_t>> comb;
+		sort(factors_a.begin(), factors_a.end());
+		combine(factors_a, comb);
+		// make and sort a set/list of each multiple
+		// select multiples in range a+1 => 2*a
+		for(auto &c : comb) {
+			uint64_t m = 1;
+			for(auto &d : c) m *= d;
+			if ((m > a) && (m < 2*a)) {
+				cout << "solution m:" << m << " a:" << a << endl;
+			}
 		}
-		cout << "  =>  " << m << endl;
+		// TODO ?sort primary results on modulus?
 	}
 		
+			
 	return 0;
 }
 
