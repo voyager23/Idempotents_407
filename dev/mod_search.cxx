@@ -68,10 +68,10 @@ int main(int argc, char **argv)
 	
     // setup the factorisation functions
     vector<uint64_t> primes;
-    SieveOfEratosthenes(primes, 1000000);
+    SieveOfEratosthenes(primes, 5000000);
     
 	set<vector<uint64_t>> combinations;
-	for(a = 1; a != 10; ++a) {
+	for(a = 499990; a != 500000; ++a) {
 		a1 = a - 1;
 		find_factors(primes, a, factors_a);
 		find_factors(primes, a1, factors_a1);
@@ -86,7 +86,11 @@ int main(int argc, char **argv)
 
 		for(auto &c : comb) {
 			uint64_t m = 1;
-			for(auto &d : c) m *= d;
+			for(auto &d : c) {
+				m *= d;
+				if(m > 2*a) break;
+			}
+
 			if ((m > a) && (m < 2*a)) {
 				cout << "solution m:" << m << " a:" << a << endl;
 				// examine/update map<modulus, a_value>
@@ -97,7 +101,9 @@ int main(int argc, char **argv)
 					best_soln.insert({m,a});
 				}				
 			} //if...
-		} //for(auto... 
+			
+		} //for(auto...
+		 
 	} //for(a =...
 	
      for(itr = best_soln.begin(); itr != best_soln.end(); ++itr){

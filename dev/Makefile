@@ -3,7 +3,7 @@
 FLAGS = -std=c++17 -g
 
 ms : mod_search.cxx toolbox.o
-	g++ mod_search.cxx toolbox.o $(FLAGS) -o ../bin/ms
+	g++ mod_search.cxx toolbox.o $(FLAGS) -pg -o ../bin/ms
 
 derive : derive.cxx toolbox.o
 	g++ derive.cxx toolbox.o $(FLAGS) -o ../bin/derive
