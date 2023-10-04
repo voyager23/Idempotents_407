@@ -25,6 +25,7 @@
 #include <vector>
 #include <algorithm>
 #include <set>
+#include <map>
 #include "../inc/toolbox.hxx"
 
 using namespace std;
@@ -62,13 +63,15 @@ int main(int argc, char **argv)
 	uint64_t a,a1,m;
 	vector<uint64_t> factors_a;
 	vector<uint64_t> factors_a1;
+	map<uint64_t,uint64_t> best_soln;
+	map<uint64_t,uint64_t>::iterator itr;	
 	
     // setup the factorisation functions
     vector<uint64_t> primes;
     SieveOfEratosthenes(primes, 1000000);
     
 	set<vector<uint64_t>> combinations;
-	for(a = 100; a != 200; ++a) {
+	for(a = 1; a != 10; ++a) {
 		a1 = a - 1;
 		find_factors(primes, a, factors_a);
 		find_factors(primes, a1, factors_a1);
@@ -80,16 +83,26 @@ int main(int argc, char **argv)
 		combine(factors_a, comb);
 		// make and sort a set/list of each multiple
 		// select multiples in range a+1 => 2*a
+
 		for(auto &c : comb) {
 			uint64_t m = 1;
 			for(auto &d : c) m *= d;
 			if ((m > a) && (m < 2*a)) {
 				cout << "solution m:" << m << " a:" << a << endl;
-			}
-		}
-		// TODO ?sort primary results on modulus?
-	}
-		
+				// examine/update map<modulus, a_value>
+				itr = best_soln.find(m);
+				if((itr != best_soln.end()) && ((itr->second) < a)) {
+					itr->second = a;
+				} else {
+					best_soln.insert({m,a});
+				}				
+			} //if...
+		} //for(auto... 
+	} //for(a =...
+	
+     for(itr = best_soln.begin(); itr != best_soln.end(); ++itr){
+		cout << "Key => " << itr->first << ", Value => " << itr->second << endl;
+	}		
 			
 	return 0;
 }
